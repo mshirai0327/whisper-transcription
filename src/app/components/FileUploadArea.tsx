@@ -12,7 +12,7 @@ export function FileUploadArea({ onFileSelect, selectedFile, disabled }: FileUpl
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
       if (disabled) return;
-      
+
       const files = e.dataTransfer.files;
       if (files.length > 0) {
         const file = files[0];
@@ -32,7 +32,10 @@ export function FileUploadArea({ onFileSelect, selectedFile, disabled }: FileUpl
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const files = e.target.files;
       if (files && files.length > 0) {
-        onFileSelect(files[0]);
+        const file = files[0];
+        if (file.type.startsWith('audio/')) {
+          onFileSelect(file);
+        }
       }
     },
     [onFileSelect]
@@ -42,11 +45,10 @@ export function FileUploadArea({ onFileSelect, selectedFile, disabled }: FileUpl
     <div
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      className={`border-2 border-dashed rounded-lg p-12 text-center transition-colors ${
-        disabled 
-          ? 'border-gray-300 bg-gray-50 cursor-not-allowed' 
+      className={`border-2 border-dashed rounded-lg p-12 text-center transition-colors ${disabled
+          ? 'border-gray-300 bg-gray-50 cursor-not-allowed'
           : 'border-gray-400 hover:border-blue-500 hover:bg-blue-50 cursor-pointer'
-      }`}
+        }`}
     >
       {selectedFile ? (
         <div className="flex flex-col items-center gap-4">

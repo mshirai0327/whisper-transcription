@@ -76,6 +76,7 @@ async def transcribe(
     
     # 一時ファイルに保存
     temp_file = None
+    temp_file_path: Optional[str] = None
     try:
         # 一時ファイルを作成 (自動削除しない)
         with tempfile.NamedTemporaryFile(delete=False, suffix=file_ext) as temp_file:
@@ -92,11 +93,14 @@ async def transcribe(
         # 処理時間の計測開始
         start_time = time.time()
         
+        # 言語が "auto" の場合は None に設定して自動検出を有効にする
+        lang_param = None if language == "auto" else language
+
         # 文字起こし実行
         result = transcribe_audio(
             file_path=temp_file_path,
             model_name=model,
-            language=language
+            language=lang_param
         )
         
         # 処理時間の計測終了
@@ -126,9 +130,13 @@ async def transcribe(
         raise HTTPException(status_code=404, detail=f"ファイルが見つかりません: {str(e)}")
     
     except ValueError as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=400, detail=f"不正なパラメータ: {str(e)}")
     
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         print(f"エラーが発生しました: {str(e)}")
         raise HTTPException(status_code=500, detail=f"文字起こし処理中にエラーが発生しました: {str(e)}")
     

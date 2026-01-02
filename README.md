@@ -47,13 +47,29 @@ pip install -r requirements.txt
 
 ## 使用方法
 
-### コマンドラインから使用
-
-```bash
-python transcribe.py --file path/to/audio/file.mp3 --model base --language ja
+### フロント
+```
+npm run dev
 ```
 
-オプション:
+### バックエンド
+
+直接起動
+
+```
+python api.py
+```
+
+unicornによるホットリロード有効
+```
+uvicorn api:app --reload --port 8000
+```
+
+`.env`で、localhostに通信するように設定する必要がある（Dockerではvite_urlを`backend`にしている）
+
+
+
+### オプション:
 
 - `--file`: 文字起こしを行う音声ファイルへのパス（必須）
 - `--model`: 使用する Whisper モデルのサイズ（tiny, base, small, medium, large）。デフォルトは`base`
