@@ -47,7 +47,6 @@ htmlcov/
 
 # エディタ関連
 .idea/
-.vscode/
 *.swp
 *.swo
 .DS_Store
