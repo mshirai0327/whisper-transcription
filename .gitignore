@@ -44,14 +44,13 @@ htmlcov/
 *.ogg
 *.flac
 *.txt
-*.json
 
 # エディタ関連
 .idea/
-.vscode/
 *.swp
 *.swo
 .DS_Store
 
 # 音声データなど
 audio/
+node_modules
