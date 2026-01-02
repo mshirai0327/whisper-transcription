@@ -121,6 +121,7 @@ export default function App() {
                         />
                     )}
 
+                    {/* TODO: これを削除するか、ファイルアップロード時点での文言に差し替えするか */}
                     {!isProcessing && !transcription && selectedFile && (
                         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                             <p className="text-yellow-800 text-sm">

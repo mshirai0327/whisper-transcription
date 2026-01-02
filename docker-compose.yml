@@ -1,3 +1,5 @@
+name: oss-whisper-transcription
+
 services:
   backend:
     build:
